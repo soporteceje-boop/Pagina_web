@@ -31,10 +31,6 @@
         <input type="text" id="numeroIdentificacion" class="form-control" placeholder="Sin puntos ni comas">
       </div>
       <div class="mb-3">
-        <label class="form-label">Fecha de Nacimiento*</label>
-        <input type="date" id="fechaNacimiento" class="form-control">
-      </div>
-      <div class="mb-3">
         <input type="checkbox" id="acuerdoPrivacidad">
         <label for="acuerdoPrivacidad"> Acepto la
           <a href="https://www.especialistasdeleje.com/politica-de-tratamiento-de-datos" target="_blank">política de tratamiento de datos</a>
@@ -81,11 +77,10 @@
       }
       var datos = {
         tipoDocumento: document.getElementById('tipoDocumento').value,
-        numeroIdentificacion: document.getElementById('numeroIdentificacion').value.trim(),
-        fechaNacimiento: document.getElementById('fechaNacimiento').value
+        numeroIdentificacion: document.getElementById('numeroIdentificacion').value.trim()
       };
-      if (!datos.numeroIdentificacion || !datos.fechaNacimiento) {
-        alert('Complete el documento y la fecha de nacimiento.');
+      if (!datos.numeroIdentificacion) {
+        alert('Complete el documento.');
         return;
       }
       mostrar('loading', true);
@@ -156,7 +151,6 @@
       document.getElementById('onError').innerHTML = '';
       document.getElementById('login').style.display = 'block';
       document.getElementById('numeroIdentificacion').value = '';
-      document.getElementById('fechaNacimiento').value = '';
       document.getElementById('acuerdoPrivacidad').checked = false;
     }
 
@@ -165,3 +159,4 @@
   </script>
 </body>
 </html>
+
