@@ -110,12 +110,18 @@
       h += '<th>Paciente</th><th>Fecha de toma</th><th>Examen</th></tr></thead><tbody>';
       for (var i = 0; i < u.examenes.length; i++) {
         var ex = u.examenes[i];
-        var token = (u.tokens && u.tokens[i]) ? u.tokens[i] : "";
+        // ✅ AHORA u.tokens[i] es un ARREGLO: puede haber varios exámenes
+        //    del mismo paciente el mismo día.
+        var tokensFila = (u.tokens && u.tokens[i]) ? u.tokens[i] : [];
         h += '<tr><td>' + (ex[0] || '') + '</td><td>' + (ex[3] || '') + '</td><td>';
-        if (token) {
-          h += '<button class="btn btn-sm btn-primary ver-btn" onclick="verPdf(\'' + token + '\', this)">📄 Ver examen</button>';
-        } else {
+        if (tokensFila.length === 0) {
           h += '<span class="badge bg-warning text-dark">Aún no disponible</span>';
+        } else if (tokensFila.length === 1) {
+          h += '<button class="btn btn-sm btn-primary ver-btn" onclick="verPdf(\'' + tokensFila[0] + '\', this)">📄 Ver examen</button>';
+        } else {
+          for (var t = 0; t < tokensFila.length; t++) {
+            h += '<button class="btn btn-sm btn-primary ver-btn mb-1" onclick="verPdf(\'' + tokensFila[t] + '\', this)">📄 Ver examen ' + (t + 1) + '</button> ';
+          }
         }
         h += '</td></tr>';
       }
